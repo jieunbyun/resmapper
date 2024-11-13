@@ -4,7 +4,14 @@ nDistrict = length( districts );
 nSample = length( roads(1).damageStates );
 
 nClosureDayArray = arrayfun( @(x) x.closureDays(:).', roads(:), 'UniformOutput', false );
+for i = 1:length(nClosureDayArray)
+    if length(nClosureDayArray{i}) < 2
+        nClosureDayArray{i} = zeros(1, nSample);
+    end
+end
+
 nClosureDayArray = cell2mat(nClosureDayArray);
+
 
 nodePairIdArray = arrayfun( @(x) x.nodePair(:).', roads(:), 'UniformOutput', false );
 nodePairIdArray = cell2mat(nodePairIdArray);
