@@ -9,7 +9,12 @@ for iRoadInd = 1:nRoad
     else
         iClosureDays = arrayfun( @(x) x.recoveryDays, roads(iOverpasses), 'UniformOutput', false );
         iClosureDays = iClosureDays(~cellfun('isempty', iClosureDays));
-        iClosureDays = max(iClosureDays, [], 1);
+        if isempty(iClosureDays)
+            iClosureDays = zeros( size( roads(iRoadInd).recoveryDays ) );
+        else
+            iClosureDays = cell2mat(iClosureDays);
+            iClosureDays = max(iClosureDays, [], 1);
+        end
         iClosureDays = ceil( closureRatioToRecoveryDays_overpass * iClosureDays );
     end
 
